@@ -1,20 +1,19 @@
 node {
-def mvnhome
-stage("checkout")
+    def mvnhome
+    stage ("checkout")
 {
-git 'https://github.com/kishoregardas/course.git'
+    git 'https://github.com/kishoregardas/course.git'
 }
-mvnhome = tool 'MAVEN_HOME'
-stage ("packaging")
+    mvnhome= tool 'MAVEN_HOME'
+    stage ("compilation")
+ {
+     sh "'${mvnhome}/bin/mvn' compile"
+ }   
+stage ("packging")
 {
-sh "'${mvnhome}/bin/mvn' package"
+    sh "'${mvnhome}/bin/mvn' package"
 }
-sshagent(['tomcat-id']) {
-    // some block
-    sh 'ssh -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.36.139:/home/ec2-user/apache-tomcat-7.0.93/webapps
+sshagent(['tomcat-dev']) {
+    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@172.31.40.65:/opt/apache-tomcat-7.0.93/webapps/'
 }
-stage ("result")
-{
-echo "successfull"
-}
-}
+ }
