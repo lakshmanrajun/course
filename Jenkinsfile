@@ -1,5 +1,5 @@
 node {
-def gitcheckout
+def mvnhome
 stage("checkout")
 {
 git 'https://github.com/kishoregardas/course.git'
