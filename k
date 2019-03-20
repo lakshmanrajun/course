@@ -1,4 +1,0 @@
-<<<<<<< HEAD
-master branch
-=======
->>>>>>> development
